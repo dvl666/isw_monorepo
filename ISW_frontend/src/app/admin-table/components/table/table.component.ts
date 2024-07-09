@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { UserServicesService } from '../../../services/user-services.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-table',
@@ -14,7 +16,8 @@ import { UserServicesService } from '../../../services/user-services.service';
 export class TableComponent {
 
   constructor(
-    private readonly userService: UserServicesService
+    private readonly userService: UserServicesService,
+    private readonly toastr: ToastrService
   ) {}
 
   @Input() users: any[]
@@ -23,6 +26,7 @@ export class TableComponent {
     this.userService.acceptTeacherRequest(user.id).subscribe({
       next: (response) => {
         this.users = this.users.filter(u => u.id !== user.id);
+        this.toastr.success('Se a aceptado la solicitud con exito.')
         console.log('User accepted:', response);
       },
       error: (err) => {
@@ -32,7 +36,7 @@ export class TableComponent {
   }
 
   public denyUser(user: any){
-    console.log(user)
+    this.toastr.success('Se a aceptado la solicitud con exito.')
   }
 
 }
