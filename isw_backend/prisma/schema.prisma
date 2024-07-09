@@ -19,6 +19,8 @@ model User {
   password  String
   name      String
   role      String?
+  contactNumber Int
+  specialty String?
   active    Boolean @default(false)
   class     Class[]
 }

@@ -9,7 +9,12 @@ export class UserService {
         private prisma: PrismaService
     ) {}
 
+    async getUsers() {
+        return this.prisma.user.findMany()
+    }
+
     async getUser(id: number) {
+        console.log(id)
         return this.prisma.user.findUnique({
             where: { id: id },
         })
@@ -41,6 +46,7 @@ export class UserService {
 
     async acceptTeacherRequest(teacherId: number) {
         const teacher = await this.getUser(teacherId)
+        console.log(teacher)
         const teacherData = { ...teacher, active: true }
         return this.prisma.user.update({
             where: { id: teacher.id },

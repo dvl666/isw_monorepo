@@ -10,7 +10,7 @@ export class ClassController {
   ) {}
 
   @Get()
-  async getUser() {
+  async getClasses() {
     return this.classService.getClasses()
   }
 

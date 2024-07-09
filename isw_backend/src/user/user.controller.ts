@@ -44,4 +44,9 @@ export class UserController {
     return this.userService.acceptTeacherRequest(parseInt(body.id))
   }
 
+  @Get('')
+  async getUsers() {
+    return this.userService.getUsers()
+  }
+
 }
