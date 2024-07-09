@@ -1,0 +1,85 @@
+<header class="row container">
+  <nav class="col-md-12 mb-3 mb-sm-0 navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">Inscripción de clases</span>
+    </div>
+  </nav>
+</header>
+
+  <div class="row">
+    <div class="col-md-12 mb-3 mb-sm-0">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{alumno.nombre}}</h5>
+          <h5 class="card-title">Clases disponibles</h5>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- Tabla de selección -->
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Clase</th>
+                <th scope="col">Profesor</th>
+                <th scope="col">Horario</th>
+                <th scope="col">Inscribir</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let clase of clases">
+                <td>{{clase.nombre}}</td>
+                <td>{{clase.profesor}}</td>
+                <td>{{clase.horario}}</td>
+                <td>
+                  <button class="btn btn-primary" (click)="inscribirClase(clase)" [disabled]="!clase.habilitada">Inscribir</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    @if(clasesInscritas.length > 0){
+      <div >
+      <h5 class="m-3">Clases Inscritas</h5>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- Tabla de selección -->
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Clase</th>
+                <th scope="col">Profesor</th>
+                <th scope="col">Horario</th>
+                <th scope="col">Desinscribir clase</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let inscrita of clasesInscritas" >
+                <td>{{inscrita.nombre}}</td>
+                <td>{{inscrita.profesor}}</td>
+                <td>{{inscrita.horario}}</td>
+                <td>
+                  <button class="btn btn-primary" (click)="desinscribirClase(inscrita)">Desinscribir</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    </div>
+    }
+
+
+  </div>
+
+
+
+
+
