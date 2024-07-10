@@ -13,6 +13,14 @@ export class UserServicesService {
 
   private apiUrl = 'http://localhost:3000'
 
+  registerStudent(email: string,name: string , password: string, contactNumber: number): Observable<any> {
+    return this.http.post(this.apiUrl + '/user/create-student', { email: email, password: password, name: name, contactNumber: contactNumber })
+  }
+
+  registerTeacher(email: string,name: string , password: string, specialty: string, contactNumber: number): Observable<any> {
+    return this.http.post(this.apiUrl + '/user/create-teacher', { email: email, password: password, name: name, specialty: specialty, contactNumber: contactNumber })
+  }
+
   logIn(email: string, password: string): Observable<any> {
     return this.http.post(this.apiUrl + '/user/login', { email: email, password: password })
   }
@@ -23,7 +31,7 @@ export class UserServicesService {
 
   acceptTeacherRequest(teacherId: string): Observable<any> {
     console.log(teacherId)
-    return this.http.post(this.apiUrl+'/user/accept-request/', {id: teacherId })
+    return this.http.post(this.apiUrl +'/user/accept-request/', {id: teacherId })
   }
 
 }
