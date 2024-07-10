@@ -21,9 +21,9 @@ import { ToastrService } from 'ngx-toastr';
     MatIconModule,
     RouterModule,
   ],
-  providers: [
-    UserServicesService
-  ],
+  // providers: [
+  //   UserServicesService
+  // ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -54,7 +54,19 @@ export class LoginComponent {
         next: (response) => {
           this.swButton = false
           console.log(response)
-          this.toastr.success('Se a iniciado sesion de manera correcta')
+          if(response.role === 'student') {
+            this.toastr.success('Se a iniciado sesion de manera correcta')
+            this.router.navigate(['/student-home'])
+          }
+          if(response.role === 'teacher' && response.active === true) {
+            this.toastr.success('Se a iniciado sesion de manera correcta')
+            this.router.navigate(['/teacher-home'])
+          } else {
+            this.toastr.error('Su cuenta aun no a sido activada')
+            return
+          } 
+          const userId = this.userService.getUserId()
+          console.log('El id del usuario es', this.userService.getUserId())
         },
         error: (error) => {
           this.swButton = true

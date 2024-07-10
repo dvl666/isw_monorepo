@@ -23,9 +23,9 @@ import { MatSelectModule } from '@angular/material/select';
     RouterModule,
     MatSelectModule
   ],
-  providers: [
-    UserServicesService
-  ],
+  // providers: [
+  //   UserServicesService
+  // ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

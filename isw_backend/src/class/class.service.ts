@@ -42,4 +42,37 @@ export class ClassService {
         })
     }
 
+    async getClassesFotStudent(studentId: number) {
+        return await this.prisma.class.findMany({
+            where: { user: {
+                some: {
+                    id: studentId
+                }
+            }}
+        })
+    }
+
+    async removeStudentFromClass(classId: number, studentId: number) {
+        return this.prisma.class.update({
+            where: { id: classId },
+            data: {
+                user: {
+                    disconnect: { id: studentId }
+                }
+            }
+        })
+    }
+
+    async getClassesNotEnrolledByStudent(studentId: number) {
+        return await this.prisma.class.findMany({
+            where: { 
+                user: {
+                    none: {
+                        id: studentId
+                    }
+                }
+            }
+        })
+    }
+
 }

@@ -7,11 +7,21 @@ import { Observable } from 'rxjs';
 })
 export class UserServicesService {
 
+  id: number
+
   constructor(
     private readonly http: HttpClient
   ) { }
 
   private apiUrl = 'http://localhost:3000'
+
+  setUpId(id: number) {
+    this.id = id
+  }
+
+  getUserId() {
+    return this.id
+  }
 
   registerStudent(email: string,name: string , password: string, contactNumber: number): Observable<any> {
     return this.http.post(this.apiUrl + '/user/create-student', { email: email, password: password, name: name, contactNumber: contactNumber })
