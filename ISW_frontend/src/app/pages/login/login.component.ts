@@ -58,6 +58,11 @@ export class LoginComponent {
             this.toastr.success('Se a iniciado sesion de manera correcta')
             this.router.navigate(['/student-home'])
           }
+          if(response.role === 'admin') {
+            this.toastr.success('Se a iniciado sesion de administrador de manera correcta')
+            this.router.navigate(['/admin-table'])
+            return
+          }
           if(response.role === 'teacher' && response.active === true) {
             this.toastr.success('Se a iniciado sesion de manera correcta')
             this.router.navigate(['/teacher-home'])
