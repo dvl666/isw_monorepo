@@ -13,6 +13,10 @@ export class UserServicesService {
 
   private apiUrl = 'http://localhost:3000'
 
+  logIn(email: string, password: string): Observable<any> {
+    return this.http.post(this.apiUrl + '/user/login', { email: email, password: password })
+  }
+
   getTeachers(): Observable<any> {
     return this.http.get(this.apiUrl+'/user')
   }

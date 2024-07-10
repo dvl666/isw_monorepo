@@ -16,6 +16,13 @@ export class UserController {
     return this.userService.getUser(parseInt(id))
   }
 
+  @Post('login')
+  async logIn(
+    @Body() body: { email: string, password: string }
+  ) {
+    return this.userService.logIn(body.email, body.password)
+  }
+
   @Post('create-teacher')
   async createTeacherUser(
     @Body() createUserDto: CreateUserDto
