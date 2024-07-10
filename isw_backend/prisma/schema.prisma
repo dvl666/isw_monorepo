@@ -29,6 +29,10 @@ model Class {
   id        Int @id @default(autoincrement())
   title     String
   theme     String
+  description String?
+  dateClass String?
+  startTime String?
+  endTime String?
   teacherId Int
   user      User[]
 }

@@ -88,7 +88,7 @@ export class RegisterComponent {
         contactNumber: this.registerStudentForm.get('contactNumber')!.value
       }
       console.log(student)
-      this.userService.registerStudent(student.email, student.password, student.name, parseInt(student.contactNumber))
+      this.userService.registerStudent( student.name, student.email, student.password, parseInt(student.contactNumber))
         .subscribe({
           next: (response) => {
             this.toastr.success('Felicidades ' + student.name + ' te has registrado de forma exitosa')
@@ -111,7 +111,7 @@ export class RegisterComponent {
         contactNumber: this.registerTeacherForm.get('contactNumber')!.value
       }
       console.log(teacher)
-      this.userService.registerTeacher(teacher.email, teacher.password, teacher.name, teacher.specialty, parseInt(teacher.contactNumber))
+      this.userService.registerTeacher(teacher.email, teacher.name, teacher.password, teacher.specialty, parseInt(teacher.contactNumber))
         .subscribe({
           next: (response) => {
             this.toastr.success('Felicidades ' + teacher.name + ' te has registrado de forma exitosa')

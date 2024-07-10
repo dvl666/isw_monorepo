@@ -19,7 +19,7 @@ import { ClassCardComponent } from "./components/class-card/class-card.component
 export class StudentHomeComponent implements OnInit {
 
   classes: any[] = []
-  studentId: number
+  studentId: number 
   // isLoading: boolean = true
 
   constructor(
@@ -28,6 +28,7 @@ export class StudentHomeComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    console.log('ola', this.studentId)
     this.studentId = this.userService.getUserId()
     this.classService.getClassesNotEnrolledByStudent(this.studentId)
     .subscribe({

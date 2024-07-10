@@ -8,6 +8,15 @@ import { Observable } from 'rxjs';
 export class ClassService {
 
   private apiUrl = 'http://localhost:3000'
+  teacherId: number
+
+  setTeacherId(id: number) {
+    this.teacherId = id
+  }
+
+  getTeacherId() {
+    return this.teacherId
+  }
 
   constructor(
     private readonly http: HttpClient
@@ -31,6 +40,18 @@ export class ClassService {
 
   getClassesNotEnrolledByStudent(studentId: number): Observable<any> {
     return this.http.get(this.apiUrl + '/class/get-classes-not-enrolled/' + studentId)
+  }
+
+  createClass(title: string, theme: string, description: string, dateClass: string, startTime: string, endTime:string, teacherId: number) {
+    return this.http.post(this.apiUrl + '/class/create-class', {
+      title: title,
+      theme: theme,
+      description: description,
+      dateClass: dateClass,
+      startTime: startTime,
+      endTime: endTime,
+      teacherId: teacherId
+    })
   }
 
   //asdasd@a

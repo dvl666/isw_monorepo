@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ClassService } from '../../services/class.service';
 
 @Component({
   selector: 'app-login',
@@ -36,6 +37,7 @@ export class LoginComponent {
     private fb: FormBuilder,
     private router: Router,
     private userService: UserServicesService,
+    private classService: ClassService,
     private readonly toastr: ToastrService
   ) {
     this.userForm = this.fb.group({
@@ -55,8 +57,10 @@ export class LoginComponent {
           this.swButton = false
           console.log(response)
           if(response.role === 'student') {
+            this.userService.setUpId(response.id)
             this.toastr.success('Se a iniciado sesion de manera correcta')
             this.router.navigate(['/student-home'])
+            return
           }
           if(response.role === 'admin') {
             this.toastr.success('Se a iniciado sesion de administrador de manera correcta')
@@ -64,6 +68,7 @@ export class LoginComponent {
             return
           }
           if(response.role === 'teacher' && response.active === true) {
+            this.classService.setTeacherId(response.id)
             this.toastr.success('Se a iniciado sesion de manera correcta')
             this.router.navigate(['/teacher-home'])
           } else {

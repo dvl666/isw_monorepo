@@ -23,11 +23,11 @@ export class UserServicesService {
     return this.id
   }
 
-  registerStudent(email: string,name: string , password: string, contactNumber: number): Observable<any> {
+  registerStudent(name: string, email: string, password: string, contactNumber: number): Observable<any> {
     return this.http.post(this.apiUrl + '/user/create-student', { email: email, password: password, name: name, contactNumber: contactNumber })
   }
 
-  registerTeacher(email: string,name: string , password: string, specialty: string, contactNumber: number): Observable<any> {
+  registerTeacher(email: string, name: string , password: string, specialty: string, contactNumber: number): Observable<any> {
     return this.http.post(this.apiUrl + '/user/create-teacher', { email: email, password: password, name: name, specialty: specialty, contactNumber: contactNumber })
   }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TeacherNavbarComponent } from "../teacher-navbar/teacher-navbar.component";
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,6 +10,7 @@ import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { ClassService } from '../../../../services/class.service';
 
 
 @Component({
@@ -32,14 +33,16 @@ import { provideNativeDateAdapter } from '@angular/material/core';
   templateUrl: './create-class.component.html',
   styleUrl: './create-class.component.scss'
 })
-export class CreateClassComponent {
+export class CreateClassComponent implements OnInit {
 
   classForm: FormGroup
+  teacherId: number
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private readonly toastr: ToastrService,
+    private classService: ClassService
   ) {
     this.classForm = this.fb.group({
       title: ['', [Validators.required]],
@@ -49,6 +52,11 @@ export class CreateClassComponent {
       startTime: ['', [Validators.required]],
       endTime: ['', [Validators.required]]
     })
+  }
+
+  ngOnInit(): void {
+    this.teacherId = this.classService.getTeacherId()
+    console.log(this.teacherId)
   }
 
   onSubmit() {
@@ -61,7 +69,23 @@ export class CreateClassComponent {
         startTime: this.classForm.get('startTime')!.value,
         endTime: this.classForm.get('endTime')!.value,
       }
-      console.log(typeof(classToCreate.dateClass))
+      this.classService.createClass(
+        classToCreate.title, 
+        classToCreate.theme,
+        classToCreate.description,
+        classToCreate.dateClass,
+        classToCreate.startTime,
+        classToCreate.endTime,
+        this.teacherId
+      ).subscribe({
+        next: (response) => {
+          this.toastr.success('Se a creado la clase con exito')
+          this.router.navigate(['/teacher-home'])
+        },
+        error: (e) => {
+          this.toastr.error(e)
+        }
+      })
     }
   }
 
