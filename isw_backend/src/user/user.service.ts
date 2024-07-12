@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -8,6 +8,19 @@ export class UserService {
     constructor(
         private prisma: PrismaService
     ) {}
+
+    async logIn(email: string, password: string) {
+        console.log(email, password)
+        console.log('hola')
+        const user = await this.prisma.user.findUnique({
+            where: { email: email }
+        })
+        if (user! && user.password === password) {
+            return user
+        } else {
+            throw new BadRequestException('Credenciales invalidas')
+        }
+    }
 
     async getUsers() {
         return this.prisma.user.findMany()
